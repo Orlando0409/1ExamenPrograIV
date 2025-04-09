@@ -1,0 +1,152 @@
+#root {
+  width: 90%;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.container {
+  display: flex;
+  font-family: sans-serif; /* Basic font */
+  color: #f0f0f0; /* Light text for dark background */
+  background-color: #222; /* Dark background */
+  padding: 20px;
+  min-height: 100vh; /* Ensure full viewport height */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+.api-info {
+  margin-bottom: 20px;
+}
+
+.main-content {
+  display: flex;
+  gap: 20px; /* Space between the left and right columns */
+  flex-grow: 1; /* Allow main content to take up remaining vertical space */
+}
+
+.center-panel{
+  width: 60%;
+}
+
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 20%; /* Adjust width as needed */
+}
+
+.price-inputs {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.price-inputs input {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #555;
+  background-color: #333;
+  color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.category-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.category-buttons button,
+.filter-input input,
+.action-buttons button {
+  padding: 10px 15px;
+  border: 1px solid #555;
+  background-color: #444;
+  color: #f0f0f0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.filter-input {
+  margin-bottom: 10px;
+  width: 90%;
+}
+
+.filter-input input {
+  width: 100%;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.right-panel {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 10%;
+}
+.results{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid whitesmoke;
+  width: 30%;
+  height: 100px;
+}
+
+
+.result-details {
+  flex-grow: 1;
+}
+
+.show-button {
+  padding: 8px 12px;
+  border: 1px solid #555;
+  background-color: #444;
+  color: #f0f0f0;
+  border-radius: 5px;
+  cursor: pointer;
+}
