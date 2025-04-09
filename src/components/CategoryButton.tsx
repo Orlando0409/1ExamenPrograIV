@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useGetProductsByCategory } from "../services/ProductHooks";
 
 
-type CategoryButtonProps {
+interface CategoryButtonProps {
   onSelectCategory: (slug: string | null) => void; // Callback para notificar la categoría seleccionada
 }
 
