@@ -1,29 +1,35 @@
+
+import { useState } from 'react';
 import { useGetProductsByCategory } from "../services/ProductHooks";
 
-type CategoryButtonType = {
-    onCategoryClick: (category: string) => void;
-};
 
-const CategoryButton = ({onCategoryClick} : CategoryButtonType ) => {
-    const { categories } = useGetProductsByCategory('');
+interface CategoryButtonProps {
+  onSelectCategory: (slug: string | null) => void; // Callback para notificar la categoría seleccionada
+}
 
-    const uniqueCategories = categories.filter((value, index, self) =>
-        index === self.findIndex((t) => t.category.name === value.category.name)
-      );
+const CategoryButton: React.FC<CategoryButtonProps> = ({ onSelectCategory }) => {
+  const [limitPages] = useState(5);
 
-      const handleCategoryClick = (category: string) => {
-        onCategoryClick(category);
-    }
+  const { categories } = useGetProductsByCategory('');
 
-    return (
-        <div className="category-buttons">
-            {uniqueCategories.map((x) => (
-                <button key={x.id} onClick={() => handleCategoryClick(x.category.name)}>
-                    {x.category.name} 
-                </button>
-            ))}
-        </div>
-    );
-};
 
+
+  const uniqueCategories = categories.filter((value, index, self) =>
+    index === self.findIndex((t) => t.category.slug === value.category.slug)
+  );
+
+
+return (
+    <div className="category-buttons">
+        {uniqueCategories.map((x) => (
+            <button key={x.id} onClick={() => onSelectCategory(x.category.slug)}>
+                {x.category.slug} 
+            </button>
+        ))}
+    </div>
+
+
+  );
+}        
+ 
 export default CategoryButton;

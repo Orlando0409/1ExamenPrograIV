@@ -5,7 +5,7 @@ export interface Product {
     price: number;
     category:{
         id: number;
-        name: string
+        slug: string
     }
 }
 
@@ -14,5 +14,4 @@ export const ProductsInitialState = {
     id: 0,
     slug: '',
     price: 0,
-    category: ''
 }

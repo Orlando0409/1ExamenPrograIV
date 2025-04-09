@@ -2,21 +2,30 @@ import { useState } from 'react';
 import Show from './components/Show';
 import ListProducts from './components/ListProducts';
 import Footer from './components/Footer';
+import MinMaxPrice from './components/MinMaxPrice';
 import CategoryButton from './components/CategoryButton';
 
 function PageLayout() {
   const [category, setCategory] = useState('');
   const [limitPages, setLimitPages] = useState(5); 
-  const [searchTitle, setSearchTitle] = useState(''); 
+  const [searchTitle, setSearchTitle] = useState(''); // Estado para el filtro por título
+  const [minPrice, setMinPrice] = useState<number | undefined>(undefined); // Precio mínimo
+  const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined); // Precio máximo
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null); // Categoría seleccionada
+
 
   const handleFetch = (page: number) => {
     setLimitPages(page); 
   };
 
   const handleReset = () => {
-    setLimitPages(5); 
-    setSearchTitle(''); 
-    setCategory('');
+
+    setLimitPages(5);
+    setSearchTitle("");
+    setMinPrice(undefined); // Limpia el filtro de precio mínimo
+    setMaxPrice(undefined); // Limpia el filtro de precio máximo
+    setSelectedCategory(null); // Limpia la categoría seleccionada
+
   };
 
   const handleLoadMore = () => {
@@ -29,17 +38,17 @@ function PageLayout() {
 
   return (
     <div className="container">
-      <div className="main-content">
-        <div className="left-panel">
-          <span>Filter By Price Range</span>
-          <div className="price-inputs">
-            <input type="number" placeholder="Min Price" />
-            <input type="number" placeholder="Max Price" />
-          </div>
 
-          <span>Filter By Category</span>
-            <CategoryButton onCategoryClick={handleCategory}/>
-          
+    <div className="main-content">
+      <div className="left-panel">
+        <span>Filter By Price Range</span>
+        <MinMaxPrice
+          onMinPriceChange={setMinPrice}
+          onMaxPriceChange={setMaxPrice}
+        />
+     <span>Filter By Category</span>
+          <CategoryButton onSelectCategory={setSelectedCategory} />
+
         </div>
 
         <div className="center-panel">
@@ -49,7 +58,10 @@ function PageLayout() {
             />
           </div>
 
-          <ListProducts limitPages={limitPages} searchTitle={searchTitle} selectedCategory={category} />
+
+          <ListProducts limitPages={limitPages} searchTitle={searchTitle} minPrice={minPrice} maxPrice={maxPrice} selectedCategorySlug={selectedCategory}
+/>
+
 
           <Footer
             limitPages={limitPages}
