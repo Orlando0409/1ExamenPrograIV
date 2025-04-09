@@ -1,22 +1,32 @@
 import { Product } from "../models/Products";
 
-const apiUrl = 'https://api.escuelajs.co/api/v1/products';
+const apiUrl = "https://api.escuelajs.co/api/v1/products";
 
+export async function getProducts(limit: number, offset: number, title?: string): Promise<Product[]> {
+ 
+  const url = title
+    ? `${apiUrl}?title=${encodeURIComponent(title)}&limit=${limit}&offset=${offset}`
+    : `${apiUrl}?limit=${limit}&offset=${offset}`;
 
-export async function getProducts(limit: number, offset: number): Promise<Product[]> {
-	const response = await fetch(apiUrl)
-    const data = await response.json()
-	return data;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Error fetching products: ${response.statusText}`);
+  }
+
+  const products = await response.json();
+  return products;
 }
 
-export async function getProductsByTitle(title?: string): Promise<Product[]>{
-    const response = await fetch(`${apiUrl}?title=${title}`);
-    const products = await response.json();
-    return products;
-}
+export async function getProductsByCategory(category?: string): Promise<Product[]> {
+  const url = category
+    ? `${apiUrl}?categorySlug=${encodeURIComponent(category)}`
+    : apiUrl;
 
-export async function getProductsByCategory(category?: string): Promise<Product[]>{
-    const response = await fetch('https://api.escuelajs.co/api/v1/products/?categorySlug='+ category);
-    const data = await response.json();
-    return data;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Error fetching products by category: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  return data;
 }

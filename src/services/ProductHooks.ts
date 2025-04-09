@@ -1,27 +1,7 @@
 import { useEffect, useState } from "react";
 import { Product } from "../models/Products";
-import { getProducts, getProductsByCategory, getProductsByTitle } from "./ProductServices";
+import { getProducts, getProductsByCategory } from "./ProductServices";
 import { useProductContext } from "../context/productContext";
-
-export const useGetProductsByTitle = (title: string, limit: number) => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-        const filteredProducts = await getProductsByTitle(title); 
-        setProducts(filteredProducts.slice(0, limit)); 
-      
-        setIsLoading(false);
-
-    };
-
-    fetchData();
-  }, [title, limit]);
-
-  return { products, isLoading };
-};
 
 export const useGetProducts = (limit: number, offset: number) => {
   const { filters } = useProductContext();
@@ -34,7 +14,7 @@ export const useGetProducts = (limit: number, offset: number) => {
       let filteredProducts: Product[] = [];
       
       if (filters.searchTitle) {
-        filteredProducts = await getProductsByTitle(filters.searchTitle);
+        filteredProducts = await getProducts(limit, offset, filters.searchTitle);
       } 
       else if (filters.selectedCategory) {
         filteredProducts = await getProductsByCategory(filters.selectedCategory);
