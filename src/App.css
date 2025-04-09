@@ -133,13 +133,15 @@
   justify-content: space-between;
   align-items: center;
   border: 2px solid whitesmoke;
-  width: 15vw;
-  height: 20vh;
+  width: 30%;
+  height: 100px;
+  padding: 5px;
 }
 
 
 .result-details {
   flex-grow: 1;
+  
 }
 
 .show-button {

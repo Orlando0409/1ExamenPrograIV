@@ -18,6 +18,7 @@ function PageLayout() {
           <div className="left-panel">
             <span>Filter By Price Range</span>
             <MinMaxPrice />
+            
             <span>Filter By Category</span>
             <CategoryButton />
           </div>
