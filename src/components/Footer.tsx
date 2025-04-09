@@ -13,13 +13,13 @@ const Footer = () => {
   const handleReset = () => {
     setLimitPages(5);
     setSearchTitle("");
-    setMinPrice(undefined);
-    setMaxPrice(undefined);
-    setSelectedCategory(null);
+    setMinPrice(0);
+    setMaxPrice(1000);
+    setSelectedCategory('');
   };
 
   const handleLoadMore = () => {
-    setLimitPages((prev) => prev + limitPages);
+    setLimitPages(limitPages + limitPages);
   };
 
   return (
