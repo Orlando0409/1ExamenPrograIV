@@ -33,20 +33,16 @@ export const useGetProducts = (limit: number, offset: number) => {
       setIsLoading(true);
       let filteredProducts: Product[] = [];
       
-      // Filtra por título si se aplica
       if (filters.searchTitle) {
         filteredProducts = await getProductsByTitle(filters.searchTitle);
       } 
-      // Filtra por categoría si se aplica
       else if (filters.selectedCategory) {
         filteredProducts = await getProductsByCategory(filters.selectedCategory);
       } 
-      // Si no hay filtros, obtenemos productos sin filtros
       else {
         filteredProducts = await getProducts(limit, offset);
       }
 
-      // Filtra por precio si es necesario
       if (filters.minPrice || filters.maxPrice) {
         filteredProducts = filteredProducts.filter(product => {
           const isPriceValid = 

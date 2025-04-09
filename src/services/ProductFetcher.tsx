@@ -5,21 +5,17 @@ const ProductFetcher = () => {
   const { filters, limitPages } = useProductContext();
   const { searchTitle, selectedCategory } = filters;
 
-  const { products, isLoading } = useGetProducts(limitPages, 0); // Obtiene productos cuando no hay filtros
-  const { products: categoryProducts } = useGetProductsByCategory(selectedCategory); // Obtiene productos por categoría
-  const { products: titleProducts } = useGetProductsByTitle(searchTitle, limitPages); // Obtiene productos por título
+  const { products, isLoading } = useGetProducts(limitPages, 0); 
+  const { products: categoryProducts } = useGetProductsByCategory(selectedCategory); 
+  const { products: titleProducts } = useGetProductsByTitle(searchTitle, limitPages); 
 
-  // Selecciona los productos según el filtro activo
   let filteredProducts = products;
 
   if (searchTitle) {
-    filteredProducts = titleProducts; // Si hay un título, usa los productos filtrados por título
+    filteredProducts = titleProducts; 
   } else if (selectedCategory) {
-    filteredProducts = categoryProducts; // Si hay una categoría, usa los productos filtrados por categoría
+    filteredProducts = categoryProducts; 
   }
-
-  // Aquí puedes actualizar el contexto o el estado con los productos filtrados si es necesario
-
   return null; // Este componente no necesita renderizar nada directamente, solo actualiza el contexto
 };
 

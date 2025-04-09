@@ -9,16 +9,16 @@ import InputTitle from './components/InputTitle';
 import ProductFetcher from './services/ProductFetcher';
 
 function PageLayout() {
-  const [limitPages, setLimitPages] = useState(0); // Límite inicial de productos
-  const [offset, setOffset] = useState(0); // Desplazamiento inicial
+  const [limitPages, setLimitPages] = useState(0);
+  const [offset, setOffset] = useState(0); 
 
   const handleFetch = (count: number) => {
-    setLimitPages(count); // Establece el límite de productos a cargar
-    setOffset(0); // Restablece el desplazamiento cuando cambia el límite
+    setLimitPages(count); 
+    setOffset(0); 
   };
 
   const handleLoadMore = () => {
-    setOffset((prev) => prev + limitPages); // Aumenta el desplazamiento según el límite actual
+    setOffset((prev) => prev + limitPages); 
   };
 
   return (
@@ -29,6 +29,7 @@ function PageLayout() {
           <div className="left-panel">
             <span>Filter By Price Range</span>
             <MinMaxPrice />
+            
             <span>Filter By Category</span>
             <CategoryButton />
           </div>
