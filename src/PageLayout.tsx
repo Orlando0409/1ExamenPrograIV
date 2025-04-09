@@ -1,25 +1,30 @@
 import { useState } from 'react';
 import Show from './components/Show';
-import Categories from './components/Categories';
 import ListProducts from './components/ListProducts';
 import Footer from './components/Footer';
 import CategoryButton from './components/CategoryButton';
 
 function PageLayout() {
+  const [category, setCategory] = useState('');
   const [limitPages, setLimitPages] = useState(5); 
-  const [searchTitle, setSearchTitle] = useState(''); // Estado para el filtro por título
+  const [searchTitle, setSearchTitle] = useState(''); 
 
   const handleFetch = (page: number) => {
-    setLimitPages(page); // Actualiza el límite de productos
+    setLimitPages(page); 
   };
 
   const handleReset = () => {
     setLimitPages(5); 
     setSearchTitle(''); 
+    setCategory('');
   };
 
   const handleLoadMore = () => {
-    setLimitPages((prev) => prev + limitPages); // Incrementa el límite según el valor actual
+    setLimitPages((prev) => prev + limitPages); 
+  };
+
+  const handleCategory = (category: string) => {
+    setCategory(category);
   };
 
   return (
@@ -33,7 +38,7 @@ function PageLayout() {
           </div>
 
           <span>Filter By Category</span>
-            <CategoryButton />
+            <CategoryButton onCategoryClick={handleCategory}/>
           
         </div>
 
@@ -44,7 +49,7 @@ function PageLayout() {
             />
           </div>
 
-          <ListProducts limitPages={limitPages} searchTitle={searchTitle} />
+          <ListProducts limitPages={limitPages} searchTitle={searchTitle} selectedCategory={category} />
 
           <Footer
             limitPages={limitPages}
