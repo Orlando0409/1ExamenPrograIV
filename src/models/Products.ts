@@ -3,6 +3,13 @@ export interface Product {
     id: number;
     slug: string;
     price: number;
+<<<<<<< HEAD
+=======
+    category:{
+        id: number;
+        name: string
+    }
+>>>>>>> origin/Karina-Final
 }
 
 

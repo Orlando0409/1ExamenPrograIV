@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { Product } from "../models/Products";
+<<<<<<< HEAD
 import { getProducts, getProductsByCategory } from "./ProductServices";
+=======
+import { getProducts, getProductsByCategory, getProductsByTitle } from "./ProductServices";
+>>>>>>> origin/Karina-Final
 
 
 export const useGetProductsFiltered = (categorySlug: string | null, selectedCategorySlug: string | null, limit: number) => {
@@ -10,6 +14,7 @@ export const useGetProductsFiltered = (categorySlug: string | null, selectedCate
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
+<<<<<<< HEAD
       try {
         let filteredProducts: Product[] = [];
 
@@ -26,8 +31,13 @@ export const useGetProductsFiltered = (categorySlug: string | null, selectedCate
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
+=======
+        const filteredProducts = await getProductsByTitle(title); 
+        setProducts(filteredProducts.slice(0, limit)); 
+      
+>>>>>>> origin/Karina-Final
         setIsLoading(false);
-      }
+
     };
 
     fetchData();
@@ -43,15 +53,18 @@ export const useGetProducts = (limit: number, offset: number, slug?: string) => 
     useEffect(() => {
       const fetchData = async () => {
         setIsLoading(true);
+<<<<<<< HEAD
         try {
           const allProducts = await getProducts(limit, offset, slug); // Obtiene todos los productos
+=======
+        
+          const allProducts = await getProducts(limit, offset); 
+>>>>>>> origin/Karina-Final
           const paginatedProducts = allProducts.slice(offset, offset + limit); // Aplica el límite y el desplazamiento
           setProducts(paginatedProducts);
-        } catch (error) {
-          console.error("Error fetching products:", error);
-        } finally {
+        
           setIsLoading(false);
-        }
+        
       };
   
       fetchData();
@@ -59,3 +72,17 @@ export const useGetProducts = (limit: number, offset: number, slug?: string) => 
   
     return { products, isLoading };
   };
+
+  export const useGetProductsByCategory = (category: string) => {
+    
+    const [categories, setCategories] = useState<Product[]>([]);
+
+    useEffect(() => {
+            (async () => {
+                const data = await getProductsByCategory(category);
+                setCategories(data);
+              })();
+          }, [category])
+
+    return { categories };
+}

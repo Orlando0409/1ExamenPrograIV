@@ -1,11 +1,11 @@
 import React from 'react';
 
-interface ShowProps {
+type ShowTypes = {
   options: number[];
   onFetch: (count: number) => void;
 }
 
-const Show: React.FC<ShowProps> = ({ options, onFetch }) => {
+const Show = ({ options, onFetch }: ShowTypes) => {
   return (
     <div>
       {options.map((option) => (
