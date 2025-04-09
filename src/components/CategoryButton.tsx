@@ -8,11 +8,8 @@ interface CategoryButtonProps {
 }
 
 const CategoryButton: React.FC<CategoryButtonProps> = ({ onSelectCategory }) => {
-  const [limitPages] = useState(5);
 
   const { categories } = useGetProductsByCategory('');
-
-
 
   const uniqueCategories = categories.filter((value, index, self) =>
     index === self.findIndex((t) => t.category.slug === value.category.slug)

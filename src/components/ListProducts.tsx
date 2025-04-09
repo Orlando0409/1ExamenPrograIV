@@ -39,6 +39,7 @@ const ListProducts: React.FC<ListProductsProps> = ({ limitPages, searchTitle, mi
         <div key={product.id} className="result-item">
           <div><strong>Title:</strong> {product.slug}</div>
           <div><strong>Price:</strong> {product.price}</div>
+          <div><strong>Category:</strong> {product.category?.slug}</div>
         </div>
       ))}
     </div>
