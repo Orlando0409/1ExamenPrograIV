@@ -135,11 +135,13 @@
   border: 2px solid whitesmoke;
   width: 30%;
   height: 100px;
+  padding: 5px;
 }
 
 
 .result-details {
   flex-grow: 1;
+  
 }
 
 .show-button {
