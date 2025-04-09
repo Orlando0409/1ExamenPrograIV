@@ -44,7 +44,7 @@ function PageLayout() {
             />
           </div>
 
-          <ListProducts limitPages={limitPages} searchTitle={searchTitle} />
+          <ListProducts limitPages={limitPages} searchTitle={searchTitle} selectedCategorySlug={null} />
 
           <Footer
             limitPages={limitPages}
