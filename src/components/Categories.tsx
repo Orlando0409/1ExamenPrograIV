@@ -1,28 +1,30 @@
-import  { useState } from 'react';
-import { useGetProducts } from '../services/ProductHooks';
-import { Product, Category } from '../models/Products';
+
+import { useState } from 'react';
+import { useGetProductsByCategory } from "../services/ProductHooks";
 
 interface CategoryProps {
-  onClick?: () => void;
+  onSelectCategory: (slug: string | null) => void; // Callback para notificar la categoría seleccionada
 }
 
-const Categories: React.FC<CategoryProps> = () => {
-      const [limitPages] = useState(5);
+const Categories: React.FC<CategoryProps> = ({ onSelectCategory }) => {
+  const [limitPages] = useState(5);
 
-  const { products }: { products: (Product & { category: Category })[] } = useGetProducts(limitPages, limitPages);
+  const { categories } = useGetProductsByCategory('');
 
-  return (
-    <div className='categories'>
-      {products.map((product) => (
-        <div key={product.id}>
-        <button >
-          {product.category.slug } 
-        </button>
-        </div>
-      ))}
-    </div>
- 
+  const uniqueCategories = categories.filter((value, index, self) =>
+    index === self.findIndex((t) => t.category.slug === value.category.slug)
   );
-};
 
+return (
+    <div className="category-buttons">
+        {uniqueCategories.map((x) => (
+            <button key={x.id} onClick={() => onSelectCategory(x.category.slug)}>
+                {x.category.slug} 
+            </button>
+        ))}
+    </div>
+
+  );
+}        
+ 
 export default Categories;
