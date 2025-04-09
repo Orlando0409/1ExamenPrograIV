@@ -10,9 +10,13 @@ const ListProducts = ({ limitPages, searchTitle }:ListProductsType) => {
   const {category} = useCategory();
   const { products, isLoading } = useGetProductsByTitle(searchTitle, limitPages); 
 
-  const filteredProducts = category
-    ? products.filter((product) => product.category.name === category)
-    : products; 
+ 
+  const filteredProducts = () => {
+    if (category) {
+      return products.filter((product) => product.category.name === category);
+    }
+    return products;
+  }
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -20,7 +24,7 @@ const ListProducts = ({ limitPages, searchTitle }:ListProductsType) => {
 
   return (
     <div className="results">
-      {filteredProducts.map((product) => (
+      {filteredProducts().map((product) => (
         <div key={product.id} className="result-item">
           <div><strong>Title:</strong> {product.slug}</div>
           <div><strong>Price:</strong> {product.price}</div>

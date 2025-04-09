@@ -19,7 +19,7 @@ function PageLayout() {
   const handleReset = () => {
     setLimitPages(5); 
     setSearchTitle(''); 
-    setCategory(''); 
+    setCategory(''); console.log('Category reset' );
   };
 
   const handleLoadMore = () => {

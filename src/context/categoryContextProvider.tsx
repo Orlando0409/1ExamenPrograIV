@@ -7,7 +7,7 @@ type categoryContextType = {
 
 const CategoryContextProvider = ({ children }: categoryContextType) => {
   
-    const [category, setCategory] = useState<string>('');
+    const [category, setCategory] = useState('');
     
     return (
     <CategoryContext.Provider value={{ category, setCategory }}>
