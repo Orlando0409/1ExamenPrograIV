@@ -2,8 +2,8 @@ import { useState } from 'react';
 import Show from './components/Show';
 import ListProducts from './components/ListProducts';
 import Footer from './components/Footer';
-import Categories from './components/Categories';
 import MinMaxPrice from './components/MinMaxPrice';
+import CategoryButton from './components/CategoryButton';
 
 function PageLayout() {
   const [limitPages, setLimitPages] = useState(5); 
@@ -40,7 +40,7 @@ function PageLayout() {
           onMaxPriceChange={setMaxPrice}
         />
      <span>Filter By Category</span>
-          <Categories onSelectCategory={setSelectedCategory} />
+          <CategoryButton onSelectCategory={setSelectedCategory} />
         </div>
 
         <div className="center-panel">
