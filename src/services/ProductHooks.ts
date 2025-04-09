@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Product } from "../models/Products";
 import { getProducts, getProductsByCategory, getProductsByTitle } from "./ProductServices";
+import { useProductContext } from "../context/productContext";
 
 export const useGetProductsByTitle = (title: string, limit: number) => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -23,26 +24,47 @@ export const useGetProductsByTitle = (title: string, limit: number) => {
 };
 
 export const useGetProducts = (limit: number, offset: number) => {
-    const [products, setProducts] = useState<Product[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        setIsLoading(true);
-        
-          const allProducts = await getProducts(limit, offset); 
-          const paginatedProducts = allProducts.slice(offset, offset + limit); // Aplica el límite y el desplazamiento
-          setProducts(paginatedProducts);
-        
-          setIsLoading(false);
-        
-      };
-  
-      fetchData();
-    }, [limit, offset]);
-  
-    return { products, isLoading };
-  };
+  const { filters } = useProductContext();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      let filteredProducts: Product[] = [];
+      
+      // Filtra por título si se aplica
+      if (filters.searchTitle) {
+        filteredProducts = await getProductsByTitle(filters.searchTitle);
+      } 
+      // Filtra por categoría si se aplica
+      else if (filters.selectedCategory) {
+        filteredProducts = await getProductsByCategory(filters.selectedCategory);
+      } 
+      // Si no hay filtros, obtenemos productos sin filtros
+      else {
+        filteredProducts = await getProducts(limit, offset);
+      }
+
+      // Filtra por precio si es necesario
+      if (filters.minPrice || filters.maxPrice) {
+        filteredProducts = filteredProducts.filter(product => {
+          const isPriceValid = 
+            (filters.minPrice ? product.price >= filters.minPrice : true) && 
+            (filters.maxPrice ? product.price <= filters.maxPrice : true);
+          return isPriceValid;
+        });
+      }
+
+      setProducts(filteredProducts);
+      setIsLoading(false);
+    };
+
+    fetchData();
+  }, [filters, limit, offset]); // Vuelve a cargar los productos cuando los filtros o el límite cambian
+
+  return { products, isLoading };
+};
 
   export const useGetProductsByCategory = (category: string) => {
     

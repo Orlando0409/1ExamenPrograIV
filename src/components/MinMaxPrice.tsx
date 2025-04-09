@@ -1,23 +1,22 @@
-interface MinMaxPriceProps {
-    onMinPriceChange: (minPrice: number | undefined) => void;
-    onMaxPriceChange: (maxPrice: number | undefined) => void;
-  }
-  
-  const MinMaxPrice: React.FC<MinMaxPriceProps> = ({ onMinPriceChange, onMaxPriceChange }) => {
-    return (
-      <div className="price-inputs">
-        <input
-          type="number"
-          placeholder="Min Price"
-          onChange={(e) => onMinPriceChange(Number(e.target.value) || undefined)}
-        />
-        <input
-          type="number"
-          placeholder="Max Price"
-          onChange={(e) => onMaxPriceChange(Number(e.target.value) || undefined)}
-        />
-      </div>
-    );
-  };
-  
-  export default MinMaxPrice;
+import { useProductContext } from "../context/productContext";
+
+const MinMaxPrice = () => {
+  const { filters, setFilters } = useProductContext();
+
+  return (
+    <div className="price-inputs">
+      <input
+        type="number"
+        placeholder="Min Price"
+        onChange={(e) => setFilters({ ...filters, minPrice: Number(e.target.value) || undefined })}
+      />
+      <input
+        type="number"
+        placeholder="Max Price"
+        onChange={(e) => setFilters({ ...filters, maxPrice: Number(e.target.value) || undefined })}
+      />
+    </div>
+  );
+};
+
+export default MinMaxPrice;

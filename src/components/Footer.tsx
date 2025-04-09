@@ -1,16 +1,32 @@
+import { useProductContext } from "../context/productContext";
 
-type FooterType = {
-  limitPages: number; 
-  onReset: () => void; 
-  onLoadMore: () => void; 
-}
+const Footer = () => {
+  const {
+    limitPages,
+    setLimitPages,
+    setSearchTitle,
+    setMinPrice,
+    setMaxPrice,
+    setSelectedCategory,
+  } = useProductContext();
 
-const Footer = ({ limitPages, onReset, onLoadMore }: FooterType) => {
+  const handleReset = () => {
+    setLimitPages(5);
+    setSearchTitle("");
+    setMinPrice(undefined);
+    setMaxPrice(undefined);
+    setSelectedCategory(null);
+  };
+
+  const handleLoadMore = () => {
+    setLimitPages((prev) => prev + limitPages);
+  };
+
   return (
     <div className="action-buttons">
       <span>Mostrando {limitPages} resultados</span>
-      <button onClick={onReset}>Reset</button>
-      <button onClick={onLoadMore}>Load More</button>
+      <button onClick={handleReset}>Reset</button>
+      <button onClick={handleLoadMore}>Load More</button>
     </div>
   );
 };
