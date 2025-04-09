@@ -1,11 +1,12 @@
-import { useGetProducts } from '../services/ProductHooks';
+import { useGetProductsByTitle } from '../services/ProductHooks';
 
 interface ListProductsProps {
-  limitPages: number; 
+  limitPages: number; // Límite de productos a mostrar
+  searchTitle: string; // Título para filtrar los productos
 }
 
-const ListProducts: React.FC<ListProductsProps> = ({ limitPages }) => {
-  const { products, isLoading } = useGetProducts(limitPages, 0); // Offset es 0 para simplicidad
+const ListProducts: React.FC<ListProductsProps> = ({ limitPages, searchTitle }) => {
+  const { products, isLoading } = useGetProductsByTitle(searchTitle, limitPages); // Filtra por título y aplica el límite
 
   if (isLoading) {
     return <h1>Loading...</h1>;

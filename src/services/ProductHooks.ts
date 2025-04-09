@@ -2,19 +2,28 @@ import { useEffect, useState } from "react";
 import { Product } from "../models/Products";
 import { getProducts, getProductsByTitle } from "./ProductServices";
 
-export const useGetProductsByTitle = (title: string) => {
-    
-    const [products, setProducts] = useState<Product[]>([]);
+export const useGetProductsByTitle = (title: string, limit: number) => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-            (async () => {
-                const products = await getProductsByTitle(title);
-                setProducts(products);
-              })();
-          }, [title])
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const filteredProducts = await getProductsByTitle(title); // Filtra por título
+        setProducts(filteredProducts.slice(0, limit)); // Aplica el límite
+      } catch (error) {
+        console.error('Error fetching products by title:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-    return { products };
-}
+    fetchData();
+  }, [title, limit]);
+
+  return { products, isLoading };
+};
 
 export const useGetProducts = (limit: number, offset: number) => {
     const [products, setProducts] = useState<Product[]>([]);

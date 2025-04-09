@@ -5,7 +5,8 @@ import ListProducts from './components/ListProducts';
 import Footer from './components/Footer';
 
 function PageLayout() {
-  const [limitPages, setLimitPages] = useState(5); // Estado inicial con 5 productos
+  const [limitPages, setLimitPages] = useState(5); 
+  const [searchTitle, setSearchTitle] = useState(''); // Estado para el filtro por título
 
   const handleFetch = (page: number) => {
     setLimitPages(page); // Actualiza el límite de productos
@@ -13,10 +14,11 @@ function PageLayout() {
 
   const handleReset = () => {
     setLimitPages(5); 
+    setSearchTitle(''); 
   };
 
   const handleLoadMore = () => {
-    setLimitPages((prev) => prev*2); 
+    setLimitPages((prev) => prev + limitPages); // Incrementa el límite según el valor actual
   };
 
   return (
@@ -36,14 +38,19 @@ function PageLayout() {
         </div>
 
         <div className="center-panel">
-          <div className="filter-input">
-            <input type="text" placeholder="Input field / Filter by title" />
+        <div className="filter-input">
+            <input type="text" placeholder="Input field / Filter by title" value={searchTitle}
+              onChange={(letra) => setSearchTitle(letra.target.value)} // Actualiza el estado del filtro
+            />
           </div>
 
-          <ListProducts limitPages={limitPages} />
+          <ListProducts limitPages={limitPages} searchTitle={searchTitle} />
 
           <Footer
-            limitPages={limitPages} onReset={handleReset} onLoadMore={handleLoadMore} />
+            limitPages={limitPages}
+            onReset={handleReset}
+            onLoadMore={handleLoadMore}
+          />
         </div>
 
         <div className="right-panel">
@@ -55,4 +62,3 @@ function PageLayout() {
 }
 
 export default PageLayout;
-
