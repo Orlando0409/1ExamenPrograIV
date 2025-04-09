@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
 import { Product } from "../models/Products";
-import { getProducts, getProductsByTitle } from "./ProductServices";
+import { getProducts, getProductsByCategory } from "./ProductServices";
 
-export const useGetProductsByTitle = (title: string) => {
+
+export const useGetProductsByCategory = (category: string) => {
     
-    const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Product[]>([]);
 
-    useEffect(() => {
-            (async () => {
-                const products = await getProductsByTitle(title);
-                setProducts(products);
-              })();
-          }, [title])
+  useEffect(() => {
+          (async () => {
+              const data = await getProductsByCategory(category);
+              setCategories(data);
+            })();
+        }, [category])
 
-    return { products };
+  return { categories };
 }
 
 export const useGetProducts = (limit: number, offset: number) => {

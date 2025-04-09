@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import Show from './components/Show';
-import Categories from './components/Categories';
 import ListProducts from './components/ListProducts';
 import Footer from './components/Footer';
+import CategoryButton from './components/CategoryButton';
 
 function PageLayout() {
   const [limitPages, setLimitPages] = useState(5); // Estado inicial con 5 productos
@@ -33,9 +33,7 @@ function PageLayout() {
           </div>
 
           <span>Filter By Category</span>
-          <div className="category-buttons">
-            <Categories />
-          </div>
+          <CategoryButton />
         </div>
 
         <div className="center-panel">
