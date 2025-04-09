@@ -1,10 +1,10 @@
+import { useCategory } from "../services/CategoryHooks";
 import { useGetProductsByCategory } from "../services/ProductHooks";
 
-type CategoryButtonType = {
-    onCategoryClick: (category: string) => void;
-};
 
-const CategoryButton = ({onCategoryClick} : CategoryButtonType ) => {
+const CategoryButton = () => {
+    const { setCategory } = useCategory();
+
     const { categories } = useGetProductsByCategory('');
 
     const uniqueCategories = categories.filter((value, index, self) =>
@@ -12,7 +12,7 @@ const CategoryButton = ({onCategoryClick} : CategoryButtonType ) => {
       );
 
       const handleCategoryClick = (category: string) => {
-        onCategoryClick(category);
+        setCategory(category);
     }
 
     return (

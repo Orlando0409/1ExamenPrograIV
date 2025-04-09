@@ -1,3 +1,4 @@
+import { useCategory } from '../services/CategoryHooks';
 import { useGetProductsByTitle } from '../services/ProductHooks';
 
 type ListProductsType ={
@@ -6,7 +7,12 @@ type ListProductsType ={
 }
 
 const ListProducts = ({ limitPages, searchTitle }:ListProductsType) => {
-  const { products, isLoading } = useGetProductsByTitle(searchTitle, limitPages); // Filtra por título y aplica el límite
+  const {category} = useCategory();
+  const { products, isLoading } = useGetProductsByTitle(searchTitle, limitPages); 
+
+  const filteredProducts = category
+    ? products.filter((product) => product.category.name === category)
+    : products; 
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -14,10 +20,11 @@ const ListProducts = ({ limitPages, searchTitle }:ListProductsType) => {
 
   return (
     <div className="results">
-      {products.map((product) => (
+      {filteredProducts.map((product) => (
         <div key={product.id} className="result-item">
           <div><strong>Title:</strong> {product.slug}</div>
           <div><strong>Price:</strong> {product.price}</div>
+          <div><strong>Category:</strong> {product.category.name}</div>
         </div>
       ))}
     </div>
