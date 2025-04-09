@@ -1,5 +1,5 @@
 import { useProductContext } from "../context/productContext";
-import { useGetProducts, useGetProductsByCategory, useGetProductsByTitle } from "./ProductHooks";
+import { useGetProducts, useGetProductsByCategory } from "./ProductHooks";
 
 const ProductFetcher = () => {
   const { filters, limitPages } = useProductContext();
@@ -7,7 +7,7 @@ const ProductFetcher = () => {
 
   const { products, isLoading } = useGetProducts(limitPages, 0); // Obtiene productos cuando no hay filtros
   const { categories: categoryProducts } = useGetProductsByCategory(selectedCategory || ''); // Obtiene productos por categoría
-  const { products: titleProducts } = useGetProductsByTitle(searchTitle, limitPages); // Obtiene productos por título
+  const { products: titleProducts } = useGetProducts(0, limitPages); // Obtiene productos por título
 
   // Selecciona los productos según el filtro activo
   let filteredProducts = products;
