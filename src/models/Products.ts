@@ -3,7 +3,10 @@ export interface Product {
     id: number;
     slug: string;
     price: number;
-    category: string;
+    category:{
+        id: number;
+        name: string
+    }
 }
 
 

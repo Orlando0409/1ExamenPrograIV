@@ -1,11 +1,11 @@
 
-interface FooterProps {
+type FooterType = {
   limitPages: number; 
   onReset: () => void; 
   onLoadMore: () => void; 
 }
 
-const Footer: React.FC<FooterProps> = ({ limitPages, onReset, onLoadMore }) => {
+const Footer = ({ limitPages, onReset, onLoadMore }: FooterType) => {
   return (
     <div className="action-buttons">
       <span>Mostrando {limitPages} resultados</span>

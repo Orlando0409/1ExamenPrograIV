@@ -15,3 +15,8 @@ export async function getProductsByTitle(title?: string): Promise<Product[]>{
     return products;
 }
 
+export async function getProductsByCategory(category?: string): Promise<Product[]>{
+    const response = await fetch('https://api.escuelajs.co/api/v1/products/?categorySlug='+ category);
+    const data = await response.json();
+    return data;
+}

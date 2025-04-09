@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Product } from "../models/Products";
-import { getProducts, getProductsByTitle } from "./ProductServices";
+import { getProducts, getProductsByCategory, getProductsByTitle } from "./ProductServices";
 
 export const useGetProductsByTitle = (title: string, limit: number) => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -9,14 +9,11 @@ export const useGetProductsByTitle = (title: string, limit: number) => {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      try {
-        const filteredProducts = await getProductsByTitle(title); // Filtra por título
-        setProducts(filteredProducts.slice(0, limit)); // Aplica el límite
-      } catch (error) {
-        console.error('Error fetching products by title:', error);
-      } finally {
+        const filteredProducts = await getProductsByTitle(title); 
+        setProducts(filteredProducts.slice(0, limit)); 
+      
         setIsLoading(false);
-      }
+
     };
 
     fetchData();
@@ -32,15 +29,13 @@ export const useGetProducts = (limit: number, offset: number) => {
     useEffect(() => {
       const fetchData = async () => {
         setIsLoading(true);
-        try {
+        
           const allProducts = await getProducts(limit, offset); 
           const paginatedProducts = allProducts.slice(offset, offset + limit); // Aplica el límite y el desplazamiento
           setProducts(paginatedProducts);
-        } catch (error) {
-          console.error("Error fetching products:", error);
-        } finally {
+        
           setIsLoading(false);
-        }
+        
       };
   
       fetchData();
@@ -48,3 +43,17 @@ export const useGetProducts = (limit: number, offset: number) => {
   
     return { products, isLoading };
   };
+
+  export const useGetProductsByCategory = (category: string) => {
+    
+    const [categories, setCategories] = useState<Product[]>([]);
+
+    useEffect(() => {
+            (async () => {
+                const data = await getProductsByCategory(category);
+                setCategories(data);
+              })();
+          }, [category])
+
+    return { categories };
+}

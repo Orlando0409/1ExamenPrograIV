@@ -1,11 +1,11 @@
 import { useGetProductsByTitle } from '../services/ProductHooks';
 
-interface ListProductsProps {
-  limitPages: number; // Límite de productos a mostrar
-  searchTitle: string; // Título para filtrar los productos
+type ListProductsType ={
+  limitPages: number; 
+  searchTitle: string; 
 }
 
-const ListProducts: React.FC<ListProductsProps> = ({ limitPages, searchTitle }) => {
+const ListProducts = ({ limitPages, searchTitle }:ListProductsType) => {
   const { products, isLoading } = useGetProductsByTitle(searchTitle, limitPages); // Filtra por título y aplica el límite
 
   if (isLoading) {
