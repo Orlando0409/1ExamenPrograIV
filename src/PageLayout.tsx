@@ -5,21 +5,20 @@ import Footer from './components/Footer';
 import CategoryButton from './components/CategoryButton';
 
 function PageLayout() {
-  const [limitPages, setLimitPages] = useState(5); // Estado inicial con 5 productos
-  const [increment, setIncrement] = useState(5); // Incremento dinámico basado en el valor seleccionado en Show
+  const [limitPages, setLimitPages] = useState(5); 
+  const [searchTitle, setSearchTitle] = useState(''); // Estado para el filtro por título
 
   const handleFetch = (page: number) => {
     setLimitPages(page); // Actualiza el límite de productos
-    setIncrement(page); // Actualiza el incremento segun el valor seleccionado
   };
 
   const handleReset = () => {
-    setLimitPages(5); // Resetea el límite a 5
-    setIncrement(5); // Resetea el incremento a 5
+    setLimitPages(5); 
+    setSearchTitle(''); 
   };
 
   const handleLoadMore = () => {
-    setLimitPages((prev) => prev + increment); // Incrementa el límite según el valor actual de increment
+    setLimitPages((prev) => prev + limitPages); // Incrementa el límite según el valor actual
   };
 
   return (
@@ -37,11 +36,13 @@ function PageLayout() {
         </div>
 
         <div className="center-panel">
-          <div className="filter-input">
-            <input type="text" placeholder="Input field / Filter by title" />
+        <div className="filter-input">
+            <input type="text" placeholder="Input field / Filter by title" value={searchTitle}
+              onChange={(letra) => setSearchTitle(letra.target.value)} // Actualiza el estado del filtro
+            />
           </div>
 
-          <ListProducts limitPages={limitPages} />
+          <ListProducts limitPages={limitPages} searchTitle={searchTitle} />
 
           <Footer
             limitPages={limitPages}
