@@ -6,7 +6,7 @@ const ProductFetcher = () => {
   const { searchTitle, selectedCategory } = filters;
 
   const { products, isLoading } = useGetProducts(limitPages, 0); // Obtiene productos cuando no hay filtros
-  const { products: categoryProducts } = useGetProductsByCategory(selectedCategory); // Obtiene productos por categoría
+  const { categories: categoryProducts } = useGetProductsByCategory(selectedCategory || ''); // Obtiene productos por categoría
   const { products: titleProducts } = useGetProductsByTitle(searchTitle, limitPages); // Obtiene productos por título
 
   // Selecciona los productos según el filtro activo
