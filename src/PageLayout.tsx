@@ -6,17 +6,20 @@ import Footer from './components/Footer';
 
 function PageLayout() {
   const [limitPages, setLimitPages] = useState(5); // Estado inicial con 5 productos
+  const [increment, setIncrement] = useState(5); // Incremento dinámico basado en el valor seleccionado en Show
 
   const handleFetch = (page: number) => {
     setLimitPages(page); // Actualiza el límite de productos
+    setIncrement(page); // Actualiza el incremento segun el valor seleccionado
   };
 
   const handleReset = () => {
-    setLimitPages(5); 
+    setLimitPages(5); // Resetea el límite a 5
+    setIncrement(5); // Resetea el incremento a 5
   };
 
   const handleLoadMore = () => {
-    setLimitPages((prev) => prev*2); 
+    setLimitPages((prev) => prev + increment); // Incrementa el límite según el valor actual de increment
   };
 
   return (
@@ -43,7 +46,10 @@ function PageLayout() {
           <ListProducts limitPages={limitPages} />
 
           <Footer
-            limitPages={limitPages} onReset={handleReset} onLoadMore={handleLoadMore} />
+            limitPages={limitPages}
+            onReset={handleReset}
+            onLoadMore={handleLoadMore}
+          />
         </div>
 
         <div className="right-panel">
@@ -55,4 +61,3 @@ function PageLayout() {
 }
 
 export default PageLayout;
-
